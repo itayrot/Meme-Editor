@@ -1,0 +1,336 @@
+body {
+    background-color: #808080;
+    margin: 0;
+    left: 0;
+}
+
+/* ///////// helpers //////////////// */
+
+.hide {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.space-b {
+    justify-content: space-between;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+/* ///////////////// header /////////// */
+
+nav {
+    background-color: #ff7f00;
+    height: 65px;
+    width: 100vw;
+}
+
+.logo {
+    width: 133px;
+    height: 22px;
+    margin-left: 11px;
+}
+
+.gallery-btn, .memes-btn {
+    margin-right: 30px;
+}
+
+.about-btn {
+    margin-right: 57px;
+}
+
+.clean-li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 21px 10px;
+    font-family: Impact;
+}
+
+li:hover {
+    /* text-shadow: 0 1px 0 #1e1e1e; */
+    color: black;
+    border-bottom: 3px solid black;
+    box-shadow: inset;
+}
+
+.search {
+    background-color: white;
+    height: 100px;
+    width: 100vw;
+    /* margin: 0 5px; */
+}
+
+/* ///////////////// gallery ////////////////// */
+
+.gallery-page {
+    width: 100vw;
+    /* height: 930px; */
+}
+
+.gallery {
+    /* height: 100vh; */
+    width: 100vw;
+}
+
+.img {
+    height: 150px;
+    width: 150px;
+    margin: 20px 20px;
+}
+
+.img-area {
+    height: 305px;
+    width: 305px;
+}
+
+.img:hover {
+    /* border-: 2px solid black; */
+    color: rgba(245, 245, 220, 0.514)
+}
+
+/* ///////////////// editor ////////////////// */
+
+/* .ttt {
+    width: 100vw;
+    height: 500px;
+} */
+
+.editor-page {
+    width: 100vw;
+    height: 500px;
+    background-color: white;
+}
+
+.editor {
+    width: 100%;
+    height: 100%;
+    /* margin: 0 5vw; */
+}
+
+.editor-board {
+    height: 100%;
+    /* flex-basis: 50%; */
+    /* margin: 5px; */
+}
+
+.container {
+    background-color: rgba(255, 230, 0, 0.363);
+    height: 450px;
+    width: 450px;
+}
+
+.txt-box {
+    height: 40px;
+    width: 100%;
+}
+
+/* ///////////////// editor board//////////////// */
+
+button img {
+    height: 30px;
+    width: 30px;
+}
+
+.txt-box {
+    height: 70px;
+}
+
+.txt-box button {
+    margin: 10px;
+}
+
+/* ////////////////canvas////////////////// */
+
+.canvas-area {
+    height: 90vh;
+    /* flex-basis: 50%; */
+    margin: 5px;
+}
+
+canvas {
+    display: block;
+    border: 1px solid black;
+}
+
+canvas input {
+    border: 2px solid black;
+}
+
+/* //////////////// footer ///////////////// */
+
+footer {
+    background-color: #ff7f00;
+    height: 207px;
+    width: 100vw;
+}
+
+/* ////////////////// fonts ////////////////// */
+
+.roboto {
+    font-family: 'Roboto', sans-serif;
+}
+
+.girassol {
+    font-family: 'Girassol', cursive;
+}
+
+/* ///////////////////////////// iphone //////////////////////////////////////////////// */
+
+/* ///////////////////////////// iphone //////////////////////////////////////////////// */
+
+@media screen and (max-width: 960px) {
+    /* body {
+        background-color: #eba4a4;
+        width: 100vw;
+        margin: 0;
+        left: 0;
+    } */
+    /* ///////////////// header /////////// */
+    nav {
+        background-color: #ff7f00;
+        height: 65px;
+        /* width: 100%; */
+    }
+    .logo {
+        width: 120px;
+        height: 22px;
+        padding-left: 60px;
+    }
+    .gallery-btn, .memes-btn, .about-btn {
+        /* margin-right: 30px; */
+        display: none;
+    }
+    .menu-btn {
+        height: 30px;
+        display: block;
+        margin-right: 20px;
+        background-color: orange;
+    }
+    .clean-li {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    li {
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 21px 10px;
+        font-family: Impact;
+    }
+    li:hover {
+        color: black;
+        border-bottom: 3px solid black;
+        box-shadow: inset;
+    }
+    .search {
+        background-color: white;
+        height: 70px;
+        /* width: 100%; */
+    }
+    /* ///////////////// gallery ////////////////// */
+    .gallery-page {
+        width: 100%;
+        /* height: 930px; */
+    }
+    /* .gallery {
+        height: 100vh; 
+        width: 95%;
+    } */
+    .img {
+        height: 150px;
+        width: 150px;
+        margin: 20px 20px;
+    }
+    .img-area {
+        height: 305px;
+        width: 305px;
+    }
+    .img:hover {
+        /* border-: 2px solid black; */
+        color: rgba(245, 245, 220, 0.514)
+    }
+    /* ///////////////// editor ////////////////// */
+    .editor-page {
+        width: 100vw;
+        height: 100%;
+        background-color: white;
+    }
+    .editor {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        /* margin: 0 5vw; */
+    }
+    .editor-board {
+        height: 100%;
+        /* flex-basis: 50%; */
+        margin-bottom: 20px;
+    }
+    .container {
+        background-color: rgba(255, 230, 0, 0.363);
+        height: 450px;
+        width: 450px;
+    }
+    .txt-box {
+        height: 40px;
+        width: 100%;
+    }
+    /* ///////////////// editor board//////////////// */
+    button img {
+        height: 30px;
+        width: 30px;
+    }
+    .txt-box {
+        height: 70px;
+    }
+    .txt-box button {
+        margin: 10px;
+    }
+    /* ////////////////canvas////////////////// */
+    .canvas-area {
+        /* height: 70vh; */
+        /* flex-basis: 50%; */
+        margin: 5px;
+    }
+    canvas {
+        display: block;
+        border: 1px solid black;
+    }
+    canvas input {
+        border: 2px solid black;
+    }
+    /* //////////////// footer ///////////////// */
+    footer {
+        background-color: #ff7f00;
+        height: 207px;
+        width: 100vw;
+    }
+}

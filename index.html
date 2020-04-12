@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="lib/animate.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <title>Memes
+    </title>
+</head>
+
+<body onload="onInit()">
+
+    <nav class='flex space-b align-center'>
+
+        <div class='logo-space'>
+            <img class='logo' src="LOGO/LOGO.png" alt="">
+        </div>
+
+        <ul class='clean-li flex  space-b align-center'>
+            <li class='gallery-btn' onclick="onShowGallery(true)">Gallery</li>
+            <li class='memes-btn' onclick="onShowGallery(false)">Memes</li>
+            <li class='about-btn'>About</li>
+        </ul>
+        <div class="hamburger-btn">
+            <!-- <button class="toggle-menu-btn fa" onclick="toggleMenu()" alt="Open main menu"></button>
+            <div class="toggle-menu-screen screen" onclick="toggleMenu()" alt="toggle main menu"></div> -->
+            <img class='menu-btn hide' src="./ICONS/ham1.png" alt="" onclick="onOpenMenu()">
+
+        </div>
+
+    </nav>
+
+
+    <!-- ///////////////////////// gallery- menu////////////////////// -->
+    <section class='gallery-page'>
+        <div class='search flex justify-center'>
+            <label for="search">search area</label>
+        </div>
+
+
+        <main class='gallery flex justify-center wrap'>
+
+        </main>
+
+    </section>
+
+    <!-- //////////////////// canvas //////////////// -->
+
+    <section class='editor-page hide  '>
+        <!-- <main class='ttt flex align-center justify-center '> -->
+        <div class='editor flex align-center justify-center'>
+
+            <section class="canvas-area flex  align-center justify-center">
+                <canvas id="my-canvas" class="flex align-center justify-center" height="450" width="450">
+                    <!-- <label for=""> -->
+                    <input class="txtBox-0" type="text">
+                    <input class="txtBox-1" type="text">
+                    <!-- </label> -->
+                </canvas>
+            </section>
+
+
+            <section class="editor-board flex wrap align-center justify-center">
+                <div class="container">
+                    <div>
+                        <input class="txt-box" type="text" placeholder="enter text here" onkeyup="onUpdateTxt(this)">
+                    </div>
+                    <div class="txt-box line1 flex justify-center align-center">
+                        <button onclick="onChangeY('down')"><img src="./ICONS/icons8-up-50.png" alt=""></button>
+                        <button onclick="onChangeY('up')"><img src="./ICONS/icons8-down-arrow-50.png" alt=""></button>
+                        <button class="btn1" onclick="onAddText(this)"><img src="./ICONS/add.png" alt=""></button>
+                        <button onclick="onSwitchTextBox(this)"><img
+                                src="./ICONS/up-and-down-opposite-double-arrows-side-by-side.png" alt="">
+                        </button>
+                        <button onclick="onDeleteTxt()"><img src="./ICONS/trash.png" alt=""></button>
+
+                    </div>
+                    <div class="txt-box line2  flex justify-center align-center">
+                        <button onclick="onChangeSize('+')"><img src="./ICONS/increase font - icon.png" alt=""></button>
+                        <button onclick="onChangeSize('-')"><img src="./ICONS/decrease font - icon.png" alt=""></button>
+                        <button onclick="onChangeAline('right')"><img src="./ICONS/align-to-left.png" alt=""></button>
+                        <button onclick="onChangeAline('left')"><img src="./ICONS/align-to-right.png" alt=""></button>
+                        <button onclick="onChangeAline('cneter')"><img src="./ICONS/center-text-alignment.png"
+                                alt=""></button>
+
+                    </div>
+                    <div class="txt-box line3  flex justify-center align-center">
+                        <select name="" id="" onchange="onGetFont(this.value)">
+                            <option class="fontStyle" value="Impact">IMPACT</option>
+                            <option class="fontStyle" value="Roboto">Roboto</option>
+                            <option class="fontStyle" value="girassol">Girassol</option>
+                            <option class="fontStyle" value="Ariel">Ariel</option>
+                        </select>
+                        <button><img src="./ICONS/text stroke.png" alt="">
+                            <input class="stroke-color" type="color" id="shapeColor"
+                                onchange="onChangeStrokeColor(this.value)" value="#000000">
+                        </button>
+                        <button><img src="./ICONS/paint-board-and-brush.png" alt="">
+                            <input class="text-color" type="color" id="shapeColor" onchange="onChangeColor(this.value)"
+                                value="#888888">
+                        </button>
+
+                    </div>
+                    <div class="txt-box line4 flex justify-center align-center">
+                        <button>Download</button>
+                        <button>Share</button>
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+        <!-- </main> -->
+
+    </section>
+
+    <!-- /////////////////// footer ///////////////////// -->
+    <footer>
+
+    </footer>
+
+
+
+    <script src="js/meme-controler.js"></script>
+    <script src="js/meme-serivce.js"></script>
+</body>
+
+</html>
+
+
+<!-- onclick="onCanvasClicked(event)" onmousemove="handleMouse(event)" onmousedown="clickStart(event)"
+onmouseup="clickEnd(event)" -->
