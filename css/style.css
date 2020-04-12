@@ -34,12 +34,20 @@ body {
     flex-wrap: wrap;
 }
 
+.margin-bottom {
+    margin-bottom: 10px;
+}
+
 /* ///////////////// header /////////// */
 
 nav {
     background-color: #ff7f00;
     height: 65px;
     width: 100vw;
+}
+
+.hamburger-btn {
+    display: none;
 }
 
 .logo {
@@ -204,50 +212,84 @@ footer {
 /* ///////////////////////////// iphone //////////////////////////////////////////////// */
 
 @media screen and (max-width: 960px) {
-    /* body {
-        background-color: #eba4a4;
-        width: 100vw;
+    body {
+        /* display: flex; */
+    }
+    .cover {
         margin: 0;
         left: 0;
+        height: 100%;
+        width: 100vw;
+        position: fixed;
+        background-color: rgba(14, 11, 11, 0.651);
+    }
+    .modal {
+        margin: 0px;
+        right: 0px;
+        height: 200%;
+        width: 20vw;
+        background-color: #fff;
+        position: absolute;
+    }
+    ul {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 300px;
+        width: 20vw;
+        z-index: 100;
+        transition: transform 1s;
+        transform: translate(100%, 0);
+    }
+    ul.open {
+        transform: translate(0, 0);
+        justify-content: start;
+    }
+    /* .gallery-btn, .memes-btn, .about-btn {
+        display: flex;
+        flex-direction: column;
+    } */
+    li {
+        background-color: rgba(168, 154, 154, 0.884);
+        color: black;
+        margin-top: 20px;
+    }
+    /* li:hover {
+        color: black;
+        border-bottom: 3px solid black;
+        box-shadow: inset;
+    } */
+    .gallery-btn, .memes-btn, .about-btn {
+        margin-right: 30px;
+        width: 60%;
+    }
+    /* .about-btn {
+        margin-right: 57px;
     } */
     /* ///////////////// header /////////// */
     nav {
-        background-color: #ff7f00;
+        /* background-color: #ff7f00; */
         height: 65px;
         /* width: 100%; */
+    }
+    .hamburger-btn {
+        display: block;
+        margin-right: 30px;
+    }
+    .menu-btn {
+        height: 30px;
     }
     .logo {
         width: 120px;
         height: 22px;
         padding-left: 60px;
     }
-    .gallery-btn, .memes-btn, .about-btn {
-        /* margin-right: 30px; */
-        display: none;
-    }
-    .menu-btn {
-        height: 30px;
-        display: block;
-        margin-right: 20px;
-        background-color: orange;
-    }
     .clean-li {
         list-style-type: none;
         margin: 0;
         padding: 0;
-    }
-    li {
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 21px 10px;
-        font-family: Impact;
-    }
-    li:hover {
-        color: black;
-        border-bottom: 3px solid black;
-        box-shadow: inset;
     }
     .search {
         background-color: white;
@@ -293,11 +335,13 @@ footer {
         height: 100%;
         /* flex-basis: 50%; */
         margin-bottom: 20px;
+        height: 350px;
+        width: 350px;
     }
     .container {
         background-color: rgba(255, 230, 0, 0.363);
-        height: 450px;
-        width: 450px;
+        height: 350px;
+        width: 350px;
     }
     .txt-box {
         height: 40px;
@@ -308,21 +352,23 @@ footer {
         height: 30px;
         width: 30px;
     }
-    .txt-box {
+    .line1, .line2, .line3 {
         height: 70px;
+        margin: 5px;
     }
     .txt-box button {
         margin: 10px;
     }
     /* ////////////////canvas////////////////// */
     .canvas-area {
-        /* height: 70vh; */
-        /* flex-basis: 50%; */
+        height: 100%;
         margin: 5px;
     }
     canvas {
         display: block;
         border: 1px solid black;
+        height: 350px;
+        width: 350px;
     }
     canvas input {
         border: 2px solid black;
@@ -330,7 +376,7 @@ footer {
     /* //////////////// footer ///////////////// */
     footer {
         background-color: #ff7f00;
-        height: 207px;
+        height: 100px;
         width: 100vw;
     }
 }

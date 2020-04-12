@@ -111,12 +111,10 @@ function deleteTxt(textBox) {
 }
 
 function changeBorderStatus(val) {
-
         gMeme.showBorder = val;
         // return gMeme.lines.border
 }
 
-// function getBorderStatus() {
-
-//         return gMeme.lines.border;
-// }
+function updateGmeme(vals) {
+        gMeme = vals
+}

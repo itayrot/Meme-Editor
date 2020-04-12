@@ -10,14 +10,27 @@ var gImgs
 var gCuurImg
 var gTextBoxLength
 var gIdxText = 0
+var gDownload = false;
+var gKey = 'meme-settings'
+var gShowSavedImgs = true;
+var gSavedImgs = []
 
 function onInit() {
-    gMeme = getGmeme();
+
+    // checkLocalStorage()
     gCanvas = document.getElementById('my-canvas');
     gCtx = gCanvas.getContext('2d');
     gCanvasHeight = gCtx.canvas.height
     gCanvasWidth = gCtx.canvas.width
     rederGallery()
+}
+
+function onShowMemes() {
+
+    var localData = loadFromStorage(gKey)
+    if (localData) {
+        rederSavedImgs()
+    }
 }
 
 
@@ -36,6 +49,34 @@ function rederGallery() {
 }
 
 
+// function rederSavedImgs() {
+
+//     var currImgUrl
+//     var strHTML = ''
+//     var imgId
+//     var elImg
+
+//     gSavedImgs.forEach(savedImg => {
+
+//         imgId = savedImg.selectedImgId
+//         elImg = gImgs.find(img => {
+//             return img.id = imgId
+//         })
+
+//         currImgUrl = elImg.url
+
+//         strHTML += `<img  id=${imgId} class='img img${imgId}' src="${currImgUrl}" onclick="drawImage(this)"
+//         onmouseover = "animateImg(this)" </img> `
+
+//     })
+//     console.log(strHTML)
+//     var elImg = document.querySelector('.savedImgs')
+//     elImg.innerHTML = strHTML
+//     // onShowGallery(true)
+// }
+
+
+
 function onShowGallery(showGallery) {
     var elGallery = document.querySelector('.gallery-page')
     var elEditor = document.querySelector('.editor-page')
@@ -50,7 +91,6 @@ function onShowGallery(showGallery) {
 
 }
 
-
 function drawImage(el) {
 
     if (el) gCuurImg = el
@@ -62,13 +102,15 @@ function drawImage(el) {
         gCtx.drawImage(img, 0, 0, gCanvasHeight, gCanvasWidth);
         renderText()
         getFocus()
+        if (gDownload) { gDownloadImg() }
     };
     onShowGallery(false)
 }
 
 
 function renderText() {
-
+    if (!gDownload) changeBorderStatus(true)
+    // if ((gMeme.lines[gIdxText].txt) && (gMeme.showBorder)) { changeBorderStatus(true) }
     gTextBoxLength = gMeme.lines.length - 1
 
     var lines = gMeme.lines
@@ -190,7 +232,7 @@ function getTextSettings() {
 
 function getFocus() {
 
-    if (!gMeme.showBorder && !gMeme.lines[gIdxText].txt) return
+    if (!gMeme.showBorder || !gMeme.lines[gIdxText].txt) return
 
     var widthX = gMeme.lines[gIdxText].posX
     var widthY = gMeme.lines[gIdxText].posY
@@ -217,6 +259,72 @@ function getFocus() {
     gCtx.closePath()
 }
 
-function onOpenMenu() {
-    console.log("sdf")
+function onToggleMenu() {
+    var body = document.querySelector('.cover')
+    var modal = document.querySelector('.modal')
+    var menu = document.querySelector('.nav-menu')
+
+    if (body.hasAttribute('hidden')) {
+
+        modal.classList.add('animated', 'fadeInRight')
+        menu.classList.add('open')
+
+        setTimeout(function () {
+            modal.classList.remove('animated', 'fadeInRight')
+        }, 1000)
+
+        body.hidden = false;
+        modal.hidden = false;
+    } else {
+
+        body.hidden = true;
+        modal.hidden = true;
+        menu.classList.remove('open')
+
+    }
+
 }
+
+function onDownloadCanvas() {
+    gMeme.selectedImgId = gCuurImg.id
+    gSavedImgs.push(gMeme)
+    ///save to local storage////
+    saveToStorage(gKey, gMeme)
+
+    gDownload = true;
+    changeBorderStatus(false)
+    drawImage(gCuurImg);
+
+
+}
+
+function gDownloadImg() {
+    // get canvas data
+    var canvas = document.querySelector('.my-canvas')
+    var image = canvas.toDataURL();
+    // create temporary link      
+    var tmpLink = document.createElement('a');
+    tmpLink.download = 'image.jpg';
+    // set the name of the download file     
+    tmpLink.href = image;
+    // temporarily add link to body and initiate the download
+    document.body.appendChild(tmpLink);
+    tmpLink.click();
+    document.body.removeChild(tmpLink);
+
+    gDownload = true;
+}
+
+// function onShareImg() {
+
+// }
+
+function checkLocalStorage() {
+    var localData = loadFromStorage(gKey)
+    if (localData) {
+        updateGmeme(localData)
+    } else {
+        gMeme = getGmeme();
+    }
+}
+

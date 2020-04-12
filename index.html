@@ -12,22 +12,30 @@
 </head>
 
 <body onload="onInit()">
-
+    <!-- class='main-page flex' -->
+    <div class="cover" hidden onclick="onToggleMenu()"></div>
+    <div class="modal" hidden>
+        <!-- <ul>
+            <li class='gallery-btn' onclick="onShowGallery(true)">Gallery</li>
+            <li class='memes-btn' onclick="onShowGallery(false)">Memes</li>
+            <li class='about-btn'>About</li>
+        </ul> -->
+    </div>
     <nav class='flex space-b align-center'>
 
         <div class='logo-space'>
             <img class='logo' src="LOGO/LOGO.png" alt="">
         </div>
 
-        <ul class='clean-li flex  space-b align-center'>
+        <ul class=' nav-menu clean-li flex  space-b align-center'>
             <li class='gallery-btn' onclick="onShowGallery(true)">Gallery</li>
-            <li class='memes-btn' onclick="onShowGallery(false)">Memes</li>
+            <li class='memes-btn' onclick="onShowMemes()">Memes</li>
             <li class='about-btn'>About</li>
         </ul>
         <div class="hamburger-btn">
             <!-- <button class="toggle-menu-btn fa" onclick="toggleMenu()" alt="Open main menu"></button>
             <div class="toggle-menu-screen screen" onclick="toggleMenu()" alt="toggle main menu"></div> -->
-            <img class='menu-btn hide' src="./ICONS/ham1.png" alt="" onclick="onOpenMenu()">
+            <img class='menu-btn' src="./ICONS/ham1.png" alt="" onclick="onToggleMenu()">
 
         </div>
 
@@ -44,6 +52,7 @@
         <main class='gallery flex justify-center wrap'>
 
         </main>
+        <!-- <section class="savedImgs hide flex justify-center wrap"></section> -->
 
     </section>
 
@@ -54,7 +63,7 @@
         <div class='editor flex align-center justify-center'>
 
             <section class="canvas-area flex  align-center justify-center">
-                <canvas id="my-canvas" class="flex align-center justify-center" height="450" width="450">
+                <canvas id="my-canvas" class=" my-canvas flex align-center justify-center" height="450" width="450">
                     <!-- <label for=""> -->
                     <input class="txtBox-0" type="text">
                     <input class="txtBox-1" type="text">
@@ -68,7 +77,7 @@
                     <div>
                         <input class="txt-box" type="text" placeholder="enter text here" onkeyup="onUpdateTxt(this)">
                     </div>
-                    <div class="txt-box line1 flex justify-center align-center">
+                    <div class="txt-btn-box line1 flex space-b align-center margin-bottom">
                         <button onclick="onChangeY('down')"><img src="./ICONS/icons8-up-50.png" alt=""></button>
                         <button onclick="onChangeY('up')"><img src="./ICONS/icons8-down-arrow-50.png" alt=""></button>
                         <button class="btn1" onclick="onAddText(this)"><img src="./ICONS/add.png" alt=""></button>
@@ -78,7 +87,7 @@
                         <button onclick="onDeleteTxt()"><img src="./ICONS/trash.png" alt=""></button>
 
                     </div>
-                    <div class="txt-box line2  flex justify-center align-center">
+                    <div class="txt-box line2  flex space-b align-center margin-bottom">
                         <button onclick="onChangeSize('+')"><img src="./ICONS/increase font - icon.png" alt=""></button>
                         <button onclick="onChangeSize('-')"><img src="./ICONS/decrease font - icon.png" alt=""></button>
                         <button onclick="onChangeAline('right')"><img src="./ICONS/align-to-left.png" alt=""></button>
@@ -87,7 +96,7 @@
                                 alt=""></button>
 
                     </div>
-                    <div class="txt-box line3  flex justify-center align-center">
+                    <div class="txt-box line3  flex space-b align-center margin-bottom">
                         <select name="" id="" onchange="onGetFont(this.value)">
                             <option class="fontStyle" value="Impact">IMPACT</option>
                             <option class="fontStyle" value="Roboto">Roboto</option>
@@ -105,8 +114,11 @@
 
                     </div>
                     <div class="txt-box line4 flex justify-center align-center">
-                        <button>Download</button>
-                        <button>Share</button>
+                        <button onclick="onDownloadCanvas()">Download
+                            <!-- <a id="download" download="myImage.jpg" href="" ;>Download to
+                                myImage.jpg</a> -->
+                        </button>
+                        <button onclick="onShareImg()">Share</button>
 
                     </div>
                 </div>
@@ -126,6 +138,7 @@
 
     <script src="js/meme-controler.js"></script>
     <script src="js/meme-serivce.js"></script>
+    <script src="js/utils.js"></script>
 </body>
 
 </html>
