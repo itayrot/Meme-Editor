@@ -24,9 +24,10 @@ var gImgs = [
 ];
 
 var gMeme = {
-        selectedImgId: 5,
+        selectedImgId: "",
         selectedLineIdx: 0,
         showBorder: false,
+        url: "",
         lines: [{
                 txt: '',
                 size: 40,
