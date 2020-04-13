@@ -3,24 +3,24 @@
 var gKeywords = { 'happy': 12, 'funny puk': 1 }
 
 var gImgs = [
-        { id: 1, url: "meme-imgs/1.jpg", keywords: ['happy', 'sad'] },
-        { id: 2, url: 'meme-imgs/2.jpg', keywords: ['happy'] },
-        { id: 3, url: 'meme-imgs/3.jpg', keywords: ['happy'] },
-        { id: 4, url: 'meme-imgs/4.jpg', keywords: ['happy'] },
-        { id: 5, url: 'meme-imgs/5.jpg', keywords: ['happy'] },
+        { id: 1, url: "meme-imgs/1.jpg", keywords: ['politics'] },
+        { id: 2, url: 'meme-imgs/2.jpg', keywords: ['animals'] },
+        { id: 3, url: 'meme-imgs/3.jpg', keywords: ['happy', 'animals', 'kids'] },
+        { id: 4, url: 'meme-imgs/4.jpg', keywords: ['happy', 'animals', 'kids'] },
+        { id: 5, url: 'meme-imgs/5.jpg', keywords: ['happy', 'kids'] },
         { id: 6, url: 'meme-imgs/6.jpg', keywords: ['happy'] },
-        { id: 7, url: 'meme-imgs/7.jpg', keywords: ['happy'] },
+        { id: 7, url: 'meme-imgs/7.jpg', keywords: ['happy', 'kids'] },
         { id: 8, url: 'meme-imgs/8.jpg', keywords: ['happy'] },
-        { id: 9, url: 'meme-imgs/9.jpg', keywords: ['happy'] },
-        { id: 10, url: 'meme-imgs/10.jpg', keywords: ['happy'] },
+        { id: 9, url: 'meme-imgs/9.jpg', keywords: ['happy', 'kids'] },
+        { id: 10, url: 'meme-imgs/10.jpg', keywords: ['funny', 'politics'] },
         { id: 11, url: 'meme-imgs/11.jpg', keywords: ['happy'] },
-        { id: 12, url: 'meme-imgs/12.jpg', keywords: ['happy'] },
-        { id: 13, url: 'meme-imgs/13.jpg', keywords: ['happy'] },
-        { id: 14, url: 'meme-imgs/14.jpg', keywords: ['happy'] },
-        { id: 15, url: 'meme-imgs/15.jpg', keywords: ['happy'] },
-        { id: 16, url: 'meme-imgs/16.jpg', keywords: ['happy'] },
-        { id: 17, url: 'meme-imgs/17.jpg', keywords: ['happy'] },
-        { id: 18, url: 'meme-imgs/18.jpg', keywords: ['happy'] }
+        { id: 12, url: 'meme-imgs/12.jpg', keywords: ['happy', 'sport'] },
+        { id: 13, url: 'meme-imgs/13.jpg', keywords: ['happy', 'movies'] },
+        { id: 14, url: 'meme-imgs/14.jpg', keywords: ['happy', 'movies'] },
+        { id: 15, url: 'meme-imgs/15.jpg', keywords: ['happy', 'movies'] },
+        { id: 16, url: 'meme-imgs/16.jpg', keywords: ['happy', 'movies'] },
+        { id: 17, url: 'meme-imgs/17.jpg', keywords: ['happy', 'movies'] },
+        { id: 18, url: 'meme-imgs/18.jpg', keywords: ['happy', 'movies'] }
 ];
 
 var gMeme = {
@@ -47,11 +47,11 @@ function updateGmeme(elImg) {
         // debugger
         gMeme.selectedImgId = elImg.id
 
-        // var currImg = gImgs.find(img => {
-        //     return img.id === parseInt(elImg.id)
-        // })
+        var currImg = gImgs.find(img => {
+                return img.id === parseInt(elImg.id)
+        })
 
-        gMeme.url = elImg.src
+        gMeme.url = currImg.url
 
 }
 
@@ -83,6 +83,18 @@ function addTxtBox(textSettings) {
                         letterCount: 0
 
                 })
+}
+
+function restoreToStorage() {
+
+        var SavedImgs = (loadFromStorage(gKey))
+        if (!SavedImgs) {
+                SavedImgs = []
+        }
+        SavedImgs.push(gMeme)
+
+        ///save to local storage////
+        saveToStorage(gKey, SavedImgs)
 }
 
 function updateFont(textBox, font) {

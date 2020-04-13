@@ -5,13 +5,14 @@ var gCtx;
 var gCanvasHeight
 var gCanvasWidth
 var gCanvasBackGround;
-var gImgs
+var gMyImgs
 var gCuurImg
 var gTextBoxLength
 var gIdxText = 0
 var gKey = 'meme-settings'
 var gShowSavedImgs = true;
 var gSavedImgs = []
+var gSearchImgs = []
 
 
 function onInit() {
@@ -32,6 +33,7 @@ function onShowPage(pageToShow) {
 
     switch (pageToShow) {
         case "gallery":
+            rederGallery()
             elGallery.classList.remove('hide');
             elEditor.classList.add('hide')
             elSavedImgs.classList.add('hide')
@@ -52,11 +54,17 @@ function onShowPage(pageToShow) {
     }
 }
 
-function rederGallery() {
+function rederGallery(searcImgs) {
 
-    gImgs = getGImgs()
+    if (searcImgs) { gMyImgs = searcImgs }
+    else {
+        var searchInput = document.querySelector('.search-input')
+        searchInput.value = "";
+        gMyImgs = getGImgs()
+    }
 
-    var strHTML = gImgs.map(img => {
+
+    var strHTML = gMyImgs.map(img => {
         return `<img  id=${img.id} class='img img${img.id}' src="${img.url}" alt="${img.keywords}" onclick="onPickedImg(this)"
         onmouseover = "animateImg(this)" </img> `
     })
@@ -75,16 +83,34 @@ function onShowMemes() {
 
 
 function rederSavedImgs() {
-    var strHTML = ''
 
-    gSavedImgs.forEach(savedImg => {
-        strHTML += `<img  id=${savedImg.selectedImgId} class='img img${savedImg.selectedImgId}' src="${savedImg.url}" onmouseover = "animateImg(this)" </img> `
-    })
+    gSavedImgs = loadFromStorage(gKey)
+    if (gSavedImgs) {
+        var strHTML = gSavedImgs.map(savedImg => {
+            return `<img  id=${savedImg.selectedImgId} class='img img${savedImg.selectedImgId}' src="${savedImg.url}"   onmouseover = "animateImg(this)" </img> `
+        })
 
-    var elImg = document.querySelector('.savedImgs-gallery')
-    elImg.innerHTML = strHTML
+        var elImg = document.querySelector('.savedImgs-gallery')
+        elImg.innerHTML = strHTML.join('')
+    }
 }
 
+function searchImgs() {
+
+    gMyImgs = getGImgs()
+
+    var search = document.querySelector('.search-input')
+    console.log("searching", search.value)
+    gSearchImgs = gMyImgs.filter(img => (
+
+        img.keywords.find(attr => {
+            return attr === search.value
+        })
+
+    ))
+    rederGallery(gSearchImgs)
+
+}
 
 function onPickedImg(el) {
     gCuurImg = el
@@ -192,11 +218,7 @@ function onToggleMenu() {
 
 
 function onDownloadCanvas() {
-    var gMeme = getGmeme()
-    gSavedImgs.push(gMeme)
-
-    ///save to local storage////
-    saveToStorage(gKey, gSavedImgs)
+    restoreToStorage()
 
     changeBorderStatus(false)
     drawCurrImage();
