@@ -26,7 +26,7 @@ var gImgs = [
 var gMeme = {
         selectedImgId: "",
         selectedLineIdx: 0,
-        showBorder: false,
+        showBorder: true,
         url: "",
         lines: [{
                 txt: '',
@@ -42,6 +42,18 @@ var gMeme = {
         }]
 }
 
+function updateGmeme(elImg) {
+        // var gMeme = getGmeme()
+        // debugger
+        gMeme.selectedImgId = elImg.id
+
+        // var currImg = gImgs.find(img => {
+        //     return img.id === parseInt(elImg.id)
+        // })
+
+        gMeme.url = elImg.src
+
+}
 
 function getGmeme() {
         return gMeme
@@ -51,10 +63,9 @@ function getGImgs() {
         return gImgs
 }
 
-function updateTxtBox(txt, textBox) {
-        gMeme.lines[textBox].letterCount++
-        gMeme.lines[textBox].txt += txt
-        drawImage()
+function updateTxtBox(txt, textIdx) {
+        gMeme.lines[textIdx].letterCount++
+        gMeme.lines[textIdx].txt += txt
 }
 
 
@@ -98,13 +109,11 @@ function changeColor(textBox, val) {
 
 function changeStrokeColor(textBox, val) {
         gMeme.lines[textBox].stroke = val;
-
 }
 
 function deleteTxt(textBox) {
 
         if (gIdxText !== 0) {
-
                 gMeme.lines.splice(textBox, 1)
         } else {
                 gMeme.lines[textBox].txt = ""
@@ -114,8 +123,4 @@ function deleteTxt(textBox) {
 function changeBorderStatus(val) {
         gMeme.showBorder = val;
         // return gMeme.lines.border
-}
-
-function updateGmeme(vals) {
-        gMeme = vals
 }

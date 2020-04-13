@@ -5,12 +5,10 @@ var gCtx;
 var gCanvasHeight
 var gCanvasWidth
 var gCanvasBackGround;
-var gMeme
 var gImgs
 var gCuurImg
 var gTextBoxLength
 var gIdxText = 0
-var gDownload = false;
 var gKey = 'meme-settings'
 var gShowSavedImgs = true;
 var gSavedImgs = []
@@ -19,56 +17,11 @@ var gSavedImgs = []
 function onInit() {
     gCanvas = document.getElementById('my-canvas');
     gCtx = gCanvas.getContext('2d');
-    gCanvasHeight = gCtx.canvas.height
-    gCanvasWidth = gCtx.canvas.width
-    checkLocalStorage()
+    gCanvasHeight = gCanvas.height
+    gCanvasWidth = gCanvas.width
     rederGallery()
-    // onShowPage('gallery')
-    // gSavedImgs.push(localData)
-
 }
 
-function checkLocalStorage() {
-    gSavedImgs.push(loadFromStorage(gKey))
-    // if (gSavedImgs) {
-    // updateGmeme(localData)
-    // } else {
-    // gMeme = getGmeme();
-    // }
-}
-
-function rederGallery() {
-    var strHTML = ''
-    gImgs = getGImgs()
-
-    gImgs.forEach(img => {
-        strHTML += `<img  id=${img.id} class='img img${img.id}' src="${img.url}" alt="${img.keywords}" onclick="drawImage(this)"
-        onmouseover = "animateImg(this)" </img> `
-    })
-
-    var elImg = document.querySelector('.gallery')
-    elImg.innerHTML = strHTML
-}
-
-function onShowMemes() {
-    var localData = loadFromStorage(gKey)
-    // console.log(localData)
-    // gSavedImgs.push(localData)
-    rederSavedImgs()
-}
-
-
-function rederSavedImgs() {
-    // console.log(gSavedImgs, "gSavedImgs")
-    var strHTML = ''
-
-    gSavedImgs.forEach(savedImg => {
-        strHTML += `<img  id=${savedImg.selectedImgId} class='img img${savedImg.selectedImgId}' src="${savedImg.url}" onmouseover = "animateImg(this)" </img> `
-    })
-
-    var elImg = document.querySelector('.savedImgs-gallery')
-    elImg.innerHTML = strHTML
-}
 
 
 
@@ -83,7 +36,6 @@ function onShowPage(pageToShow) {
             elEditor.classList.add('hide')
             elSavedImgs.classList.add('hide')
             onToggleMenu()
-
             break;
         case "editor":
             elGallery.classList.add('hide');
@@ -100,9 +52,48 @@ function onShowPage(pageToShow) {
     }
 }
 
-function drawImage(el) {
-    if (el)
-        gCuurImg = el
+function rederGallery() {
+
+    gImgs = getGImgs()
+
+    var strHTML = gImgs.map(img => {
+        return `<img  id=${img.id} class='img img${img.id}' src="${img.url}" alt="${img.keywords}" onclick="onPickedImg(this)"
+        onmouseover = "animateImg(this)" </img> `
+    })
+
+    var elImg = document.querySelector('.gallery')
+    elImg.innerHTML = strHTML.join('')
+}
+
+
+
+function onShowMemes() {
+    var localData = loadFromStorage(gKey)
+    gSavedImgs.push(localData)
+    rederSavedImgs()
+}
+
+
+function rederSavedImgs() {
+    var strHTML = ''
+
+    gSavedImgs.forEach(savedImg => {
+        strHTML += `<img  id=${savedImg.selectedImgId} class='img img${savedImg.selectedImgId}' src="${savedImg.url}" onmouseover = "animateImg(this)" </img> `
+    })
+
+    var elImg = document.querySelector('.savedImgs-gallery')
+    elImg.innerHTML = strHTML
+}
+
+
+function onPickedImg(el) {
+    gCuurImg = el
+    updateGmeme(el)
+    drawCurrImage(el)
+}
+
+function drawCurrImage() {
+    var gMeme = getGmeme()
 
     var img = new Image();
     img.src = gCuurImg.src;
@@ -110,21 +101,25 @@ function drawImage(el) {
     img.onload = function () {
         gCtx.drawImage(img, 0, 0, gCanvasHeight, gCanvasWidth);
         renderText()
-        getFocus()
-        if (gDownload) { gDownloadImg() }
+
+        // check with or without border//
+        if (!gMeme.showBorder) {
+            downloadImg();
+        } else { getFocus() }
     };
     onShowPage("editor")
 }
 
 
 function renderText() {
-    if (!gDownload) changeBorderStatus(true)
+    var gMeme = getGmeme()
+
     gTextBoxLength = gMeme.lines.length - 1
 
     var lines = gMeme.lines
     lines.forEach(line => {
 
-        gCtx.font = `${line.size}px ${line.font} Sans `;
+        gCtx.font = `${line.size}px ${line.font}  `;
         gCtx.fillStyle = line.color;
         gCtx.textAlign = line.align;
         gCtx.fillText(line.txt, line.posX, line.posY);
@@ -133,44 +128,6 @@ function renderText() {
         gCtx.strokeText(line.txt, line.posX, line.posY);
     })
 }
-
-
-function getPositionY() {
-    if (gIdxText === 0) return 50
-    else if (gIdxText === 1) return 400
-    else return (gCanvasHeight / 2)
-}
-
-
-function onUpdateTxt(el) {
-    updateTxtBox(el.value.slice(-1), gIdxText)
-}
-
-
-function animateImg(elImg) {
-    elImg.classList.add('animated', 'pulse')
-    setTimeout(function () {
-        elImg.classList.remove('animated', 'pulse')
-    }, 1000)
-}
-
-function onSwitchTextBox() {
-    if (gIdxText < gTextBoxLength)
-        gIdxText += 1;
-    else gIdxText = 0;
-
-    clearTextBox()
-    drawImage()
-}
-
-
-function onAddText() {
-    gIdxText += 1;
-    var textSetting = getTextSettings()
-    clearTextBox()
-    addTxtBox(textSetting)
-}
-
 
 function getTextSettings() {
     var strokeColor = document.querySelector(".stroke-color").value
@@ -188,30 +145,23 @@ function getTextSettings() {
 
 
 function getFocus() {
-    if (!gMeme.showBorder || !gMeme.lines[gIdxText].txt) return
+    var gMeme = getGmeme()
 
     var widthX = gMeme.lines[gIdxText].posX
     var widthY = gMeme.lines[gIdxText].posY
     var xLength = gMeme.lines[gIdxText].letterCount
     var size = gMeme.lines[gIdxText].size
 
-    // console.log(widthX, widthY, xLength, size)
-
-    // var fromX = widthX - (xLength * size / 4)
-    // var fromY = (widthY - size)
-    // var toX = (xLength * size / 2)
-    // var toY = (widthX + (xLength * 10))
-
-    // console.log(fromX, fromY, toX, toY)
+    var fromX = widthX - (10 * xLength * (size / 20)) / 2
+    var fromY = widthY - (size)
+    var toX = (xLength * size / 2)
+    var toY = size + 20
 
     gCtx.beginPath()
     gCtx.strokeStyle = 'black'
-    // gCtx.rect(fromX, fromY, toX, toY)
-    gCtx.rect(widthX - 150, widthY - 40, 350, 50)
+    gCtx.rect(fromX, fromY, toX, toY)
     gCtx.setLineDash([10, 10])
     gCtx.stroke()
-    // gCtx.fillStyle = gFillColor
-    // gCtx.fillRect(widthX, widthY, getRandomIntInclusive(0,gCanvasHeight), getRandomIntInclusive(0,gCanvasWidth))
     gCtx.closePath()
 }
 
@@ -242,29 +192,19 @@ function onToggleMenu() {
 
 
 function onDownloadCanvas() {
-
+    var gMeme = getGmeme()
     gSavedImgs.push(gMeme)
 
-    gMeme.selectedImgId = gCuurImg.id
-
-    var currImg = gImgs.find(img => {
-        return img.id === parseInt(gCuurImg.id)
-    })
-
-    gMeme.url = currImg.url
-
     ///save to local storage////
-    saveToStorage(gKey, gMeme)
+    saveToStorage(gKey, gSavedImgs)
 
-    gDownload = true;
     changeBorderStatus(false)
-    drawImage(gCuurImg);
-    // gMeme = '';
+    drawCurrImage();
 }
 
 
-function gDownloadImg() {
-    // get canvas data
+function downloadImg() {
+
     var canvas = document.querySelector('.my-canvas')
     var image = canvas.toDataURL();
     // create temporary link      
@@ -272,16 +212,9 @@ function gDownloadImg() {
     tmpLink.download = 'image.jpg';
     // set the name of the download file     
     tmpLink.href = image;
-    // temporarily add link to body and initiate the download
-    document.body.appendChild(tmpLink);
     tmpLink.click();
-    document.body.removeChild(tmpLink);
 
-    gDownload = false;
-    // clearTextBox()
-
-    //// prevent txt on new editor img /////
-    onDeleteTxt()
+    changeBorderStatus(true)
 
 }
 
@@ -291,42 +224,84 @@ function clearTextBox() {
     txtBox.value = '';
 }
 
+
+
+function getPositionY() {
+    if (gIdxText === 0) return 50
+    else if (gIdxText === 1) return 400
+    else return (gCanvasHeight / 2)
+}
+
+
+function onUpdateTxt(el) {
+    updateTxtBox(el.value.slice(-1), gIdxText)
+    drawCurrImage()
+
+}
+
+
+function animateImg(elImg) {
+    elImg.classList.add('animated', 'pulse')
+    setTimeout(function () {
+        elImg.classList.remove('animated', 'pulse')
+    }, 1000)
+}
+
+function onSwitchTextBox() {
+    if (gIdxText < gTextBoxLength)
+        gIdxText += 1;
+    else gIdxText = 0;
+
+    clearTextBox()
+    drawCurrImage()
+}
+
+
+function onAddText() {
+    gIdxText += 1;
+    var textSetting = getTextSettings()
+    clearTextBox()
+    addTxtBox(textSetting)
+
+}
+
 function onGetFont(fontStyle) {
     updateFont(gIdxText, fontStyle)
-    drawImage(gCuurImg)
+    drawCurrImage()
 
 }
 
 function onChangeSize(val) {
     changeSize(gIdxText, val);
-    drawImage(gCuurImg)
+    drawCurrImage()
 }
 
 function onChangeAline(val) {
     changeAline(gIdxText, val);
-    drawImage(gCuurImg);
+    drawCurrImage();
 
 }
 
 function onChangeY(val) {
     changeY(gIdxText, val)
-    drawImage(gCuurImg);
+    drawCurrImage();
 }
 
 function onChangeColor(color) {
     changeColor(gIdxText, color)
-    drawImage(gCuurImg);
+    drawCurrImage();
 
 }
 
 function onChangeStrokeColor(color) {
     changeStrokeColor(gIdxText, color)
-    drawImage(gCuurImg);
+    drawCurrImage();
 
 }
 
 function onDeleteTxt() {
     deleteTxt(gIdxText);
-    drawImage(gCuurImg);
+    gIdxText--;
+    drawCurrImage();
     clearTextBox()
 }

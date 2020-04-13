@@ -38,6 +38,14 @@ body {
     margin-bottom: 10px;
 }
 
+.column {
+    flex-direction: column;
+}
+
+.around {
+    justify-content: space-around;
+}
+
 /* ///////////////// header /////////// */
 
 nav {
@@ -152,12 +160,7 @@ li:hover {
 .container {
     background-color: rgba(255, 230, 0, 0.363);
     height: 450px;
-    width: 450px;
-}
-
-.txt-box {
-    height: 40px;
-    width: 100%;
+    width: 350px;
 }
 
 /* ///////////////// editor board//////////////// */
@@ -165,14 +168,44 @@ li:hover {
 button img {
     height: 30px;
     width: 30px;
+    cursor: pointer;
 }
 
 .txt-box {
-    height: 70px;
+    margin-top: 5px;
+    height: 30px;
+    width: 90%;
+    border-radius: 20px;
 }
 
 .txt-box button {
     margin: 10px;
+    cursor: pointer;
+}
+
+.btn-box {
+    background-color: aqua;
+}
+
+.color-icons {
+    display: flex;
+    cursor: pointer;
+}
+
+.color-icons img {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    cursor: pointer;
+}
+
+.color-icons input {
+    position: absolute;
+    cursor: pointer;
+}
+
+.lung-btn {
+    cursor: pointer;
 }
 
 /* ////////////////canvas////////////////// */
@@ -229,10 +262,12 @@ footer {
     .modal {
         margin: 0px;
         right: 0px;
-        height: 200%;
+        height: 50%;
         width: 20vw;
-        background-color: #fff;
+        background-color: rgba(255, 215, 82, 0.781);
         position: absolute;
+        border-top-left-radius: 40px;
+        border-bottom-left-radius: 40px;
     }
     ul {
         display: flex;
@@ -348,13 +383,16 @@ footer {
         width: 300px;
     }
     .txt-box {
-        height: 40px;
-        width: 100%;
+        margin-top: 5px;
+        height: 30px;
+        width: 90%;
+        border-radius: 20px;
     }
     /* ///////////////// editor board//////////////// */
     button img {
         height: 20px;
         width: 20px;
+        cursor: pointer;
     }
     .line1, .line2, .line3 {
         height: 50px;
@@ -362,6 +400,7 @@ footer {
     }
     .txt-box button {
         margin: 10px;
+        cursor: pointer;
     }
     /* ////////////////canvas////////////////// */
     .canvas-area {

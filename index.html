@@ -15,16 +15,11 @@
     <!-- class='main-page flex' -->
     <div class="cover" hidden onclick="onToggleMenu()"></div>
     <div class="modal" hidden>
-        <!-- <ul>
-            <li class='gallery-btn' onclick="onShowGallery(true)">Gallery</li>
-            <li class='memes-btn' onclick="onShowGallery(false)">Memes</li>
-            <li class='about-btn'>About</li>
-        </ul> -->
     </div>
     <nav class='flex space-b align-center'>
 
         <div class='logo-space'>
-            <img class='logo' src="LOGO/LOGO.png" alt="">
+            <img class='logo' src="icons/logo.png" alt="">
         </div>
 
         <ul class=' nav-menu clean-li flex  space-b align-center'>
@@ -35,7 +30,7 @@
         <div class="hamburger-btn">
             <!-- <button class="toggle-menu-btn fa" onclick="toggleMenu()" alt="Open main menu"></button>
             <div class="toggle-menu-screen screen" onclick="toggleMenu()" alt="toggle main menu"></div> -->
-            <img class='menu-btn' src="./ICONS/ham1.png" alt="" onclick="onToggleMenu()">
+            <img class='menu-btn' src="icons/ham1.png" alt="" onclick="onToggleMenu()">
 
         </div>
 
@@ -58,7 +53,7 @@
 
     <!-- ////////////////////////saved imgs //////////////////// -->
 
-    <section class="savedImgs">
+    <section class="savedImgs hide">
 
         <div class="flex justify-center">
             <h2 class="">your saved imgs</h2>
@@ -78,52 +73,54 @@
             <section class="canvas-area flex  align-center justify-center">
                 <canvas id="my-canvas" class=" my-canvas flex align-center justify-center" height="450" width="450">
                     <!-- <label for=""> -->
-                    <input class="txtBox-0" type="text">
-                    <input class="txtBox-1" type="text">
+                    <!-- <input class="txtBox-0" type="text"> -->
+                    <!-- <input class="txtBox-1" type="text"> -->
                     <!-- </label> -->
                 </canvas>
             </section>
 
 
             <section class="editor-board flex wrap align-center justify-center">
-                <div class="container">
-                    <div>
+                <div class="container flex column around">
+                    <div class="flex justify-center">
                         <input class="txt-box" type="text" placeholder="enter text here" onkeyup="onUpdateTxt(this)">
                     </div>
-                    <div class="txt-btn-box line1 flex space-b align-center margin-bottom">
-                        <button onclick="onChangeY('down')"><img src="./ICONS/icons8-up-50.png" alt=""></button>
-                        <button onclick="onChangeY('up')"><img src="./ICONS/icons8-down-arrow-50.png" alt=""></button>
-                        <button class="btn1" onclick="onAddText(this)"><img src="./ICONS/add.png" alt=""></button>
+                    <div class="btn-box line1 flex space-b align-center margin-bottom">
+                        <button onclick="onChangeY('down')"><img src="icons/icons8-up-50.png" alt=""></button>
+                        <button onclick="onChangeY('up')"><img src="icons/icons8-down-arrow-50.png" alt=""></button>
+                        <button class="btn1" onclick="onAddText(this)"><img src="icons/add.png" alt=""></button>
                         <button onclick="onSwitchTextBox(this)"><img
-                                src="./ICONS/up-and-down-opposite-double-arrows-side-by-side.png" alt="">
+                                src="icons/up-and-down-opposite-double-arrows-side-by-side.png" alt="">
                         </button>
-                        <button onclick="onDeleteTxt()"><img src="./ICONS/trash.png" alt=""></button>
+                        <button onclick="onDeleteTxt()"><img src="icons/trash.png" alt=""></button>
 
                     </div>
-                    <div class="txt-box line2  flex space-b align-center margin-bottom">
-                        <button onclick="onChangeSize('+')"><img src="./ICONS/increase font - icon.png" alt=""></button>
-                        <button onclick="onChangeSize('-')"><img src="./ICONS/decrease font - icon.png" alt=""></button>
-                        <button onclick="onChangeAline('right')"><img src="./ICONS/align-to-left.png" alt=""></button>
-                        <button onclick="onChangeAline('left')"><img src="./ICONS/align-to-right.png" alt=""></button>
-                        <button onclick="onChangeAline('cneter')"><img src="./ICONS/center-text-alignment.png"
+                    <div class="btn-box line2  flex space-b align-center margin-bottom">
+                        <button onclick="onChangeSize('+')"><img src="icons/increase font - icon.png" alt=""></button>
+                        <button onclick="onChangeSize('-')"><img src="icons/decrease font - icon.png" alt=""></button>
+                        <button onclick="onChangeAline('right')"><img src="icons/align-to-left.png" alt=""></button>
+                        <button onclick="onChangeAline('left')"><img src="icons/align-to-right.png" alt=""></button>
+                        <button onclick="onChangeAline('cneter')"><img src="icons/center-text-alignment.png"
                                 alt=""></button>
 
                     </div>
-                    <div class="txt-box line3  flex space-b align-center margin-bottom">
-                        <select name="" id="" onchange="onGetFont(this.value)">
+                    <div class="btn-box line3  flex space-b align-center margin-bottom">
+                        <select class="lung-btn" name="" id="" onchange="onGetFont(this.value)">
                             <option class="fontStyle" value="Impact">IMPACT</option>
+                            <option class="fontStyle" value="Ariel">Ariel</option>
                             <option class="fontStyle" value="Roboto">Roboto</option>
                             <option class="fontStyle" value="girassol">Girassol</option>
-                            <option class="fontStyle" value="Ariel">Ariel</option>
                         </select>
-                        <button><img src="./ICONS/text stroke.png" alt="">
+                        <label class="color-icons">
+                            <img src="icons/text stroke.png" alt="">
                             <input class="stroke-color" type="color" id="shapeColor"
-                                onchange="onChangeStrokeColor(this.value)" value="#000000">
-                        </button>
-                        <button><img src="./ICONS/paint-board-and-brush.png" alt="">
+                                onchange="onChangeStrokeColor(this.value)" value="#000000" style="opacity: 0;">
+                        </label>
+                        <lable class="color-icons">
+                            <img src="icons/paint-board-and-brush.png" alt="">
                             <input class="text-color" type="color" id="shapeColor" onchange="onChangeColor(this.value)"
-                                value="#888888">
-                        </button>
+                                value="#888888" style="opacity: 0;">
+                        </lable>
 
                     </div>
                     <div class="txt-box line4 flex justify-center align-center">
